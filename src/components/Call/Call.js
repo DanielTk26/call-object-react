@@ -21,9 +21,7 @@ export default function Call() {
   const callObject = useContext(CallObjectContext);
   const [callState, dispatch] = useReducer(callReducer, initialCallState);
 
-  /**
-   * Start listening for participant changes, when the callObject is set.
-   */
+  
   useEffect(() => {
     if (!callObject) return;
 
@@ -41,15 +39,14 @@ export default function Call() {
       });
     }
 
-    // Use initial state
+   
     handleNewParticipantsState();
 
-    // Listen for changes in state
+  
     for (const event of events) {
       callObject.on(event, handleNewParticipantsState);
     }
 
-    // Stop listening for changes in state
     return function cleanup() {
       for (const event of events) {
         callObject.off(event, handleNewParticipantsState);
@@ -57,9 +54,7 @@ export default function Call() {
     };
   }, [callObject]);
 
-  /**
-   * Start listening for call errors, when the callObject is set.
-   */
+  
   useEffect(() => {
     if (!callObject) return;
 
@@ -72,9 +67,6 @@ export default function Call() {
       });
     }
 
-    // We're making an assumption here: there is no camera error when callObject
-    // is first assigned.
-
     callObject.on('camera-error', handleCameraErrorEvent);
 
     return function cleanup() {
@@ -82,9 +74,7 @@ export default function Call() {
     };
   }, [callObject]);
 
-  /**
-   * Start listening for fatal errors, when the callObject is set.
-   */
+ 
   useEffect(() => {
     if (!callObject) return;
 
@@ -96,8 +86,6 @@ export default function Call() {
       });
     }
 
-    // We're making an assumption here: there is no error when callObject is
-    // first assigned.
 
     callObject.on('error', handleErrorEvent);
 
@@ -106,9 +94,7 @@ export default function Call() {
     };
   }, [callObject]);
 
-  /**
-   * Start a timer to show the "click allow" message, when the component mounts.
-   */
+  
   useEffect(() => {
     const t = setTimeout(() => {
       dispatch({ type: CLICK_ALLOW_TIMEOUT });
@@ -119,9 +105,7 @@ export default function Call() {
     };
   }, []);
 
-  /**
-   * Send an app message to the remote participant whose tile was clicked on.
-   */
+  
   const sendHello = useCallback(
     (participantId) => {
       callObject &&
@@ -171,7 +155,7 @@ export default function Call() {
         {
           !message
             ? largeTiles
-            : null /* Avoid showing large tiles to make room for the message */
+            : null 
         }
       </div>
       <div className="small-tiles">{smallTiles}</div>
