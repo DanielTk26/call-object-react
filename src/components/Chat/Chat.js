@@ -27,10 +27,7 @@ export default function Chat(props) {
     setInputValue('');
   }
 
-  /**
-   * Update chat state based on a message received to all participants.
-   *
-   */
+  
   useEffect(() => {
     if (!callObject) {
       return;
@@ -48,7 +45,7 @@ export default function Chat(props) {
           message: event.data.message,
         },
       ]);
-      // Make other icons light up
+      
       props.notification();
     }
 
