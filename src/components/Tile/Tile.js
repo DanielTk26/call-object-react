@@ -29,15 +29,7 @@ function getTrackUnavailableMessage(kind, trackState) {
   }
 }
 
-/**
- * Props
- * - videoTrackState: DailyTrackState?
- * - audioTrackState: DailyTrackState?
- * - isLocalPerson: boolean
- * - isLarge: boolean
- * - disableCornerMessage: boolean
- * - onClick: Function
- */
+
 export default function Tile(props) {
   const videoEl = useRef(null);
   const audioEl = useRef(null);
@@ -62,17 +54,13 @@ export default function Tile(props) {
     return getTrackUnavailableMessage('audio', props.audioTrackState);
   }, [props.audioTrackState]);
 
-  /**
-   * When video track changes, update video srcObject
-   */
+ 
   useEffect(() => {
     videoEl.current &&
       (videoEl.current.srcObject = new MediaStream([videoTrack]));
   }, [videoTrack]);
 
-  /**
-   * When audio track changes, update audio srcObject
-   */
+  
   useEffect(() => {
     audioEl.current &&
       (audioEl.current.srcObject = new MediaStream([audioTrack]));
@@ -90,7 +78,7 @@ export default function Tile(props) {
   }
 
   function getOverlayComponent() {
-    // Show overlay when video is unavailable. Audio may be unavailable too.
+   
     return (
       videoUnavailableMessage && (
         <p className="overlay">
@@ -107,7 +95,7 @@ export default function Tile(props) {
   }
 
   function getCornerMessageComponent() {
-    // Show corner message when only audio is unavailable.
+   
     return (
       !props.disableCornerMessage &&
       audioUnavailableMessage &&
