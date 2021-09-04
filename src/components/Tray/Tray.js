@@ -12,11 +12,7 @@ import CallObjectContext from '../../CallObjectContext';
 import { logDailyEvent } from '../../logUtils';
 import DailyIframe from '@daily-co/daily-js';
 
-/**
- * Gets [isCameraMuted, isMicMuted, isSharingScreen].
- * This function is declared outside Tray() so it's not recreated every render
- * (which would require us to declare it as a useEffect dependency).
- */
+
 function getStreamStates(callObject) {
   let isCameraMuted,
     isMicMuted,
