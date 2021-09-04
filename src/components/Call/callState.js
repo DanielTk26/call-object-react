@@ -1,13 +1,3 @@
-/**
- * Call state is comprised of:
- * - "Call items" (inputs to the call, i.e. participants or shared screens)
- * - UI state that depends on call items (for now, just whether to show "click allow" message)
- *
- * Call items are keyed by id:
- * - "local" for the current participant
- * - A session id for each remote participant
- * - "<id>-screen" for each shared screen
- */
 const initialCallState = {
   callItems: {
     local: {
@@ -20,36 +10,15 @@ const initialCallState = {
   fatalError: null,
 };
 
-// --- Actions ---
-
-/**
- * CLICK_ALLOW_TIMEOUT action structure:
- * - type: string
- */
 const CLICK_ALLOW_TIMEOUT = 'CLICK_ALLOW_TIMEOUT';
 
-/**
- * PARTICIPANTS_CHANGE action structure:
- * - type: string
- * - participants: Object (from Daily callObject.participants())
- */
 const PARTICIPANTS_CHANGE = 'PARTICIPANTS_CHANGE';
 
-/**
- * CAM_OR_MIC_ERROR action structure:
- * - type: string
- * - message: string
- */
 const CAM_OR_MIC_ERROR = 'CAM_OR_MIC_ERROR';
 
-/**
- * CAM_OR_MIC_ERROR action structure:
- * - type: string
- * - message: string
- */
 const FATAL_ERROR = 'FATAL_ERROR';
 
-// --- Reducer and helpers --
+
 
 function callReducer(callState, action) {
   switch (action.type) {
@@ -102,9 +71,7 @@ function shouldIncludeScreenCallItem(participant) {
   );
 }
 
-// --- Derived data ---
 
-// True if id corresponds to local participant (*not* their screen share)
 function isLocal(id) {
   return id === 'local';
 }
@@ -138,7 +105,7 @@ function getMessage(callState) {
   } else if (shouldShowClickAllow()) {
     header = 'Click "Allow" to enable camera and mic access';
   } else if (Object.keys(callState.callItems).length === 1) {
-    header = "Copy and share this page's URL to invite others";
+    header = "Copy and paste this page's URL in the Online Doctor Consultation App chats to invite the other person(Doctor or Pateint)";
     detail = window.location.href;
   }
   return header || detail ? { header, detail, isError } : null;
