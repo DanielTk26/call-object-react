@@ -1,12 +1,6 @@
 import React from 'react';
 import './CallMessage.css';
 
-/**
- * Props:
- * - header: string
- * - detail: string
- * - isError: boolean
- */
 export default function CallMessage(props) {
   return (
     <div className={'call-message' + (props.isError ? ' error' : '')}>
